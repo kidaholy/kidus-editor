@@ -1,14 +1,13 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Send, Mail, MapPin, CheckCircle2, AlertCircle, Loader2, Youtube, Linkedin, Twitter, Instagram, MessageSquare } from 'lucide-react';
+import { Send, Mail, MapPin, CheckCircle2, AlertCircle, Loader2, Youtube, Linkedin, Twitter, Instagram } from 'lucide-react';
 import { api } from '../lib/api.js';
 
 const SOCIALS = [
-  { label: 'YouTube', href: 'https://youtube.com/@yourchannel', icon: Youtube },
-  { label: 'TikTok', href: 'https://tiktok.com/@yourhandle', icon: Instagram },
-  { label: 'LinkedIn', href: 'https://linkedin.com/in/yourprofile', icon: Linkedin },
-  { label: 'Twitter / X', href: 'https://x.com/yourhandle', icon: Twitter },
-  { label: 'Discord', href: 'https://discord.com/users/yourid', icon: MessageSquare },
+  { label: 'YouTube', href: 'https://youtube.com/@kidus_edits', icon: Youtube },
+  { label: 'LinkedIn', href: 'https://linkedin.com/in/kidus-subagya', icon: Linkedin },
+  { label: 'X (Twitter)', href: 'https://x.com/kidus_subagya', icon: Twitter },
+  { label: 'TikTok', href: 'https://tiktok.com/@kidus_edits', icon: Instagram },
 ];
 
 const BUDGETS = ['< $500', '$500 — $1k', '$1k — $3k', '$3k+', 'Retainer'];
@@ -75,22 +74,22 @@ export default function ContactSection() {
             </p>
 
             <div className="mt-8 space-y-3 text-sm">
-              <a href="mailto:hello@yourdomain.com" className="flex items-center gap-3 text-slate-300 transition hover:text-neon">
+              <a href="mailto:hello@kidus.subagya.com" className="flex items-center gap-3 text-slate-300 transition hover:text-neon">
                 <span className="grid h-10 w-10 place-items-center rounded-xl border border-white/10 bg-white/5">
                   <Mail size={16} className="text-neon" />
                 </span>
-                hello@yourdomain.com
+                hello@kidus.subagya.com
               </a>
               <p className="flex items-center gap-3 text-slate-300">
                 <span className="grid h-10 w-10 place-items-center rounded-xl border border-white/10 bg-white/5">
-                  <MapPin size={16} className="text-cyanx-400" />
+                  <MapPin size={16} className="text-cyan-400" />
                 </span>
-                Remote · working across EU / US time zones
+                Addis Ababa, Ethiopia · Remote across EU / US time zones
               </p>
             </div>
 
             <div className="mt-8">
-              <p className="label">Find me</p>
+              <p className="label">Find me on</p>
               <div className="flex flex-wrap gap-2.5">
                 {SOCIALS.map(({ label, href, icon: Icon }) => (
                   <a

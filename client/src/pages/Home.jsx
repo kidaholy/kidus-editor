@@ -1,6 +1,8 @@
 import { motion } from 'framer-motion';
 import Navbar from '../components/Navbar.jsx';
 import Hero from '../components/Hero.jsx';
+import About from '../pages/About.jsx';
+import Skills from '../pages/Skills.jsx';
 import JourneyTimeline from '../components/JourneyTimeline.jsx';
 import PortfolioGrid from '../components/PortfolioGrid.jsx';
 import CVSection from '../components/CVSection.jsx';
@@ -30,6 +32,8 @@ export default function Home() {
       <main>
         <Hero />
         <Ticker />
+        <About />
+        <Skills />
         <JourneyTimeline />
         <PortfolioGrid />
         <CVSection />

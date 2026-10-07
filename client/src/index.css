@@ -23,6 +23,24 @@ body {
   color: #fff;
 }
 
+::first-letter {
+  display: block;
+  float: left;
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 4.2em;
+  line-height: 0.85;
+  font-weight: 700;
+  color: #06b6d4;
+  margin-right: 0.08em;
+  margin-top: 0.04em;
+}
+
+@media (min-width: 640px) {
+  ::first-letter {
+    font-size: 5.2em;
+  }
+}
+
 ::-webkit-scrollbar {
   width: 10px;
   height: 10px;

@@ -79,10 +79,9 @@ export default function Hero() {
             custom={1}
             className="font-display text-4xl font-bold leading-[1.05] tracking-tight text-ink sm:text-6xl xl:text-7xl"
           >
-            I edit video
+            Creative Video Editor
             <br />
-            people actually
-            <span className="gradient-text"> finish watching.</span>
+            &amp; Visual Storyteller
           </motion.h1>
 
           <motion.p
@@ -92,9 +91,8 @@ export default function Hero() {
             custom={2}
             className="mt-6 max-w-xl text-base leading-relaxed text-slate-400 sm:text-lg"
           >
-            Short-form edits for TikTok, Reels &amp; Shorts engineered for retention — plus long-form YouTube and
-            documentary storytelling with motion graphics, VFX and sound design. 1+ year, 350+ cuts, one obsession:
-            the next second.
+            Transforming raw footage into engaging short-form and long-form content that drives viewer retention and
+            brand engagement.
           </motion.p>
 
           <motion.div
@@ -105,13 +103,10 @@ export default function Hero() {
             className="mt-9 flex flex-wrap items-center gap-3"
           >
             <a href="#work" className="btn-primary">
-              <Crosshair size={16} /> View Work
+              <Crosshair size={16} /> View My Work
             </a>
             <a href="#contact" className="btn-ghost">
-              <Send size={16} /> Hire Me
-            </a>
-            <a href="/api/cv/download" className="btn-ghost" download>
-              <Download size={16} /> Download CV
+              <Send size={16} /> Get in Touch
             </a>
           </motion.div>
 

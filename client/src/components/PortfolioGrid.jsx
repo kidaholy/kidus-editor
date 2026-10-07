@@ -1,20 +1,20 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Play, Star, Film, Loader2, AlertTriangle, Youtube, Instagram } from 'lucide-react';
+import { Play, Star, Film, Loader2, AlertTriangle, Youtube, Instagram, ChevronRight } from 'lucide-react';
 import { api } from '../lib/api.js';
 import ProjectModal from './ProjectModal.jsx';
 
 const TABS = [
+  { id: 'short-form', label: 'Short-form social edits' },
+  { id: 'long-form', label: 'Long-form YouTube storytelling' },
+  { id: 'events-brand', label: 'Event & brand promos' },
   { id: 'all', label: 'All' },
-  { id: 'short-form', label: 'Short-form (TikTok/Reels)' },
-  { id: 'long-form', label: 'Long-form (YouTube)' },
-  { id: 'vfx-motion', label: 'VFX / Motion Graphics' },
 ];
 
 const CATEGORY_LABEL = {
-  'short-form': 'Short-form',
-  'long-form': 'Long-form',
-  'vfx-motion': 'VFX / Motion',
+  'short-form': 'Short-form social',
+  'long-form': 'Long-form YouTube',
+  'events-brand': 'Event & brand',
 };
 
 function PlatformBadge({ platform }) {
@@ -129,7 +129,7 @@ function Card({ project, onOpen, index }) {
         <div className="mt-4 flex items-center justify-between">
           <span className="text-[11px] uppercase tracking-wider text-slate-500">Watch full video</span>
           <span className="font-mono text-[11px] text-slate-600 transition group-hover:translate-x-1 group-hover:text-neon">
-            →
+            <ChevronRight size={14} />
           </span>
         </div>
       </div>
