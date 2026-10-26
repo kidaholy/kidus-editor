@@ -79,7 +79,10 @@ export default function About() {
                 className="card p-6"
               >
                 <span className="grid h-10 w-10 place-items-center rounded-xl bg-neon-500/10 text-neon">
-                  <p className="font-display text-lg font-bold">{p.icon}</p>
+                  {(() => {
+                    const Icon = p.icon;
+                    return <Icon size={20} />;
+                  })()}
                 </span>
                 <h3 className="mt-4 font-display text-lg font-semibold text-ink">{p.title}</h3>
                 <p className="mt-2 text-sm leading-relaxed text-slate-400">{p.text}</p>

@@ -4,3 +4,8 @@ dist/
 server/uploads/
 *.log
 .DS_Store
+
+.vercel
+.env*
+!.env.example
+

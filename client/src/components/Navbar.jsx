@@ -34,7 +34,7 @@ export default function Navbar() {
           <span className="grid h-9 w-9 place-items-center rounded-xl bg-neon-500 text-slate-950 shadow-glow transition group-hover:rotate-12">
             <Clapperboard size={18} strokeWidth={2.4} />
           </span>
-          <span>
+          <span className="text-slate-300">
             CUT<span className="text-neon">/</span>ROOM
           </span>
         </a>
