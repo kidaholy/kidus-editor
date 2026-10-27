@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
-import { Download, ExternalLink, RefreshCw, FileText, Briefcase, Wrench, Loader2 } from 'lucide-react';
+import { Download, ExternalLink, RefreshCw, FileText, Briefcase, Wrench, Loader2, AlertCircle } from 'lucide-react';
 import { api } from '../lib/api.js';
 
 const EXPERIENCE = [
@@ -36,6 +36,8 @@ export default function CVSection() {
   const [cv, setCv] = useState(null);
   const [checked, setChecked] = useState(false);
   const [viewerKey, setViewerKey] = useState(0);
+  const [iframeError, setIframeError] = useState(false);
+  const iframeRef = useRef(null);
 
   useEffect(() => {
     api('/cv')
@@ -43,6 +45,20 @@ export default function CVSection() {
       .catch(() => setCv(null))
       .finally(() => setChecked(true));
   }, []);
+
+  // Probe the /api/cv/file endpoint to detect JSON error responses
+  // (the iframe itself can't tell us if it loaded a PDF or an error page)
+  useEffect(() => {
+    if (!checked || !cv?.url) return;
+    setIframeError(false);
+    fetch('/api/cv/file', { method: 'HEAD' })
+      .then((r) => {
+        if (!r.ok || !r.headers.get('content-type')?.includes('pdf')) {
+          setIframeError(true);
+        }
+      })
+      .catch(() => setIframeError(true));
+  }, [checked, cv, viewerKey]);
 
   const hasCv = !!cv?.url;
 
@@ -163,13 +179,28 @@ export default function CVSection() {
                 <div className="absolute inset-0 grid place-items-center gap-3 text-slate-500">
                   <Loader2 className="animate-spin text-neon" />
                 </div>
-              ) : hasCv ? (
+              ) : hasCv && !iframeError ? (
                 <iframe
+                  ref={iframeRef}
                   key={viewerKey}
                   src="/api/cv/file#toolbar=0&view=FitH"
                   title="CV preview"
                   className="absolute inset-0 h-full w-full border-0"
                 />
+              ) : hasCv && iframeError ? (
+                <div className="absolute inset-0 grid place-items-center p-8 text-center">
+                  <div>
+                    <AlertCircle size={40} className="mx-auto text-amber-500" />
+                    <p className="mt-4 font-display text-lg font-semibold text-slate-300">CV file unavailable</p>
+                    <p className="mt-2 max-w-sm text-sm text-slate-500">
+                      The server restarted and the cached file was cleared. Please re-upload the PDF from{' '}
+                      <span className="text-neon">Dashboard → CV</span> to restore the preview.
+                    </p>
+                    <a href="/admin" className="btn-ghost mt-6 !py-2.5">
+                      Go to dashboard
+                    </a>
+                  </div>
+                </div>
               ) : (
                 <div className="absolute inset-0 grid place-items-center p-8 text-center">
                   <div>
