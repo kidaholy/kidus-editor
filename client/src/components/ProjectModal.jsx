@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import ReactPlayer from 'react-player';
 import { X, ExternalLink, Clock, Star, Tag } from 'lucide-react';
@@ -18,6 +18,85 @@ const CATEGORY_LABEL = {
   'long-form': 'Long-form',
   'vfx-motion': 'VFX / Motion Graphics',
 };
+
+/**
+ * TikTok embed using the official oEmbed blockquote + their JS SDK.
+ * This is the only reliable way to embed TikTok (direct iframes are blocked).
+ */
+function TikTokEmbed({ videoUrl, embedUrl }) {
+  const containerRef = useRef(null);
+
+  // Extract video ID from the embed URL (https://www.tiktok.com/embed/v2/{id}) or original URL
+  const idMatch = (embedUrl || videoUrl || '').match(/\/video\/(\d+)|\/embed\/v2\/(\d+)/);
+  const videoId = idMatch ? (idMatch[1] || idMatch[2]) : null;
+
+  // Extract username from original URL e.g. /@username/video/...
+  const userMatch = (videoUrl || '').match(/tiktok\.com\/@([\w.-]+)/i);
+  const username = userMatch ? userMatch[1] : 'tiktokuser';
+
+  // Clean canonical URL for oEmbed blockquote
+  const canonicalUrl = videoId
+    ? `https://www.tiktok.com/@${username}/video/${videoId}`
+    : (videoUrl || '').split('?')[0];
+
+  useEffect(() => {
+    if (!containerRef.current) return;
+
+    // Remove any previously injected TikTok script to force re-render
+    const existingScript = document.getElementById('tiktok-embed-sdk');
+    if (existingScript) existingScript.remove();
+
+    // Inject TikTok's official embed JS
+    const script = document.createElement('script');
+    script.id = 'tiktok-embed-sdk';
+    script.src = 'https://www.tiktok.com/embed.js';
+    script.async = true;
+    document.body.appendChild(script);
+
+    return () => {
+      const s = document.getElementById('tiktok-embed-sdk');
+      if (s) s.remove();
+    };
+  }, [canonicalUrl]);
+
+  if (!videoId && !canonicalUrl) {
+    return (
+      <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-black text-slate-400">
+        <p className="text-sm">Could not parse TikTok video ID.</p>
+        <a href={videoUrl} target="_blank" rel="noreferrer" className="text-sm text-neon underline">
+          Watch on TikTok ↗
+        </a>
+      </div>
+    );
+  }
+
+  return (
+    <div
+      ref={containerRef}
+      className="absolute inset-0 flex items-center justify-center overflow-auto bg-black"
+      style={{ WebkitOverflowScrolling: 'touch' }}
+    >
+      {/* TikTok official oEmbed blockquote — their embed.js will transform this */}
+      <blockquote
+        className="tiktok-embed"
+        cite={canonicalUrl}
+        data-video-id={videoId}
+        style={{ maxWidth: '325px', minWidth: '325px', margin: '0 auto' }}
+      >
+        <section>
+          <a
+            href={canonicalUrl}
+            target="_blank"
+            rel="noreferrer"
+            style={{ color: '#69C9D0', fontFamily: 'sans-serif', fontSize: '14px' }}
+          >
+            Watch on TikTok ↗
+          </a>
+        </section>
+      </blockquote>
+    </div>
+  );
+}
 
 /** Decides how a project should be played. */
 function Player({ project, open }) {
@@ -51,13 +130,19 @@ function Player({ project, open }) {
     );
   }
 
-  // 3. Everything else (TikTok, Instagram, X, unknown) uses its platform iframe.
+  // 3. TikTok — use official oEmbed blockquote + embed.js (direct iframes are blocked by TikTok).
+  if (platform === 'tiktok') {
+    return <TikTokEmbed videoUrl={videoUrl} embedUrl={embedUrl} />;
+  }
+
+  // 4. Instagram, X, unknown — generic iframe.
   return (
     <iframe
       src={url}
       title={project.title}
       allow="autoplay; fullscreen; picture-in-picture; encrypted-media"
       allowFullScreen
+      referrerPolicy="no-referrer-when-downgrade"
       className="absolute inset-0 h-full w-full rounded-b-2xl border-0 bg-black"
     />
   );
@@ -120,7 +205,10 @@ export default function ProjectModal({ project, onClose }) {
               </button>
             </div>
 
-            <div className="relative aspect-video w-full bg-black">
+            <div
+              className="relative w-full bg-black"
+              style={{ aspectRatio: project.platform === 'tiktok' ? '9/16' : '16/9', maxHeight: project.platform === 'tiktok' ? '70vh' : undefined }}
+            >
               <Player project={project} open />
             </div>
 
