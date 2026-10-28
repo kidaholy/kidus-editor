@@ -5,31 +5,31 @@ import { api } from '../lib/api.js';
 
 const EXPERIENCE = [
   {
-    role: 'Freelance Video Editor',
+    role: 'Freelance Video Editor & Motion Designer',
     period: '2023 — Present',
     points: [
-      '350+ delivered edits for creators, agencies and brands across short-form and long-form.',
-      'Specialised in retention-driven short-form: hooks, pacing, captions, sound design.',
-      'Long-form YouTube and documentary projects: assembly, B-roll, grade, mix, delivery.',
+      '350+ delivered edits for creators and brands — high-retention short-form (TikTok / Reels / Shorts) and dynamic long-form YouTube content.',
+      'Custom After Effects expressions and ExtendScript JSX scripts for kinetic typography and reusable motion graphic systems.',
+      'Hook-engineered edits with pattern interrupts, caption pacing and sound design tuned to the algorithm.',
     ],
   },
   {
-    role: 'Motion Graphics & VFX Editor',
+    role: 'Full-Stack Web Developer',
     period: '2024 — Present',
     points: [
-      'Automated title/lower-third template systems that cut per-video production time ~60%',
-      'Tracking, clean-up, screen comps and particle work for branded content.',
+      'Full-stack applications built with React, Node.js, Express and MongoDB — including this portfolio.',
+      'REST API design, authentication, file upload pipelines and production deployments on Vercel.',
     ],
   },
 ];
 
 const TOOLKIT = [
   ['Adobe Premiere Pro', 'Expert'],
-  ['CapCut', 'Expert'],
-  ['After Effects / Motion', 'Advanced'],
-  ['DaVinci Resolve', 'Intermediate'],
-  ['Photoshop / Thumbnailing', 'Advanced'],
-  ['Audition / Sound design', 'Intermediate'],
+  ['CapCut (mobile + desktop)', 'Expert'],
+  ['Adobe After Effects', 'Advanced'],
+  ['ExtendScript JSX (Premiere & AE)', 'Advanced'],
+  ['AE Expressions (kinetic type & MG)', 'Advanced'],
+  ['Full-stack JS (React / Node / MongoDB)', 'Advanced'],
 ];
 
 export default function CVSection() {

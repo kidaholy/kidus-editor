@@ -26,6 +26,9 @@ const thumbnailStorage = multer.diskStorage({
 });
 
 function imageFilter(req, file, cb) {
+  if (file.size !== undefined && file.size < 500) {
+    return cb(Object.assign(new Error('Uploaded image is too small or corrupt'), { status: 400 }));
+  }
   if (/^image\/(png|jpe?g|webp|gif|avif)$/.test(file.mimetype)) return cb(null, true);
   cb(Object.assign(new Error('Only image files are allowed'), { status: 400 }));
 }

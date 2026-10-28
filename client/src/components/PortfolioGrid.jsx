@@ -39,6 +39,7 @@ function PlatformBadge({ platform }) {
 
 function Card({ project, onOpen, index }) {
   const videoRef = useRef(null);
+  const [thumbBroken, setThumbBroken] = useState(false);
   const isDirect = project.platform === 'direct' || /\.(mp4|webm|mov)(\?.*)?$/i.test(project.embedUrl || project.videoUrl || '');
 
   const startPreview = () => {
@@ -74,12 +75,13 @@ function Card({ project, onOpen, index }) {
             preload="metadata"
             className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
           />
-        ) : project.thumbnail ? (
+        ) : project.thumbnail && !thumbBroken ? (
           <img
             src={project.thumbnail}
             alt={project.title}
             loading="lazy"
             className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+            onError={() => setThumbBroken(true)}
           />
         ) : (
           <div className="grid h-full w-full place-items-center bg-gradient-to-br from-slate-800 to-slate-900 text-slate-600">

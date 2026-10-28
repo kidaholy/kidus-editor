@@ -1,12 +1,11 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Send, Mail, MapPin, CheckCircle2, AlertCircle, Loader2, Youtube, Linkedin, Twitter, Instagram } from 'lucide-react';
+import { Send, Mail, MapPin, CheckCircle2, AlertCircle, Loader2, Youtube, MessageCircle, Instagram } from 'lucide-react';
 import { api } from '../lib/api.js';
 
 const SOCIALS = [
   { label: 'YouTube', href: 'https://youtube.com/@kidus_edits', icon: Youtube },
-  { label: 'LinkedIn', href: 'https://linkedin.com/in/kidus-subagya', icon: Linkedin },
-  { label: 'X (Twitter)', href: 'https://x.com/kidus_subagya', icon: Twitter },
+  { label: 'Telegram', href: 'https://t.me/Kidajos', icon: MessageCircle },
   { label: 'TikTok', href: 'https://tiktok.com/@kidus_edits', icon: Instagram },
 ];
 
@@ -74,11 +73,17 @@ export default function ContactSection() {
             </p>
 
             <div className="mt-8 space-y-3 text-sm">
-              <a href="mailto:hello@kidus.subagya.com" className="flex items-center gap-3 text-slate-300 transition hover:text-neon">
+              <a href="mailto:kidayos2014@gmail.com" className="flex items-center gap-3 text-slate-300 transition hover:text-neon">
                 <span className="grid h-10 w-10 place-items-center rounded-xl border border-white/10 bg-white/5">
                   <Mail size={16} className="text-neon" />
                 </span>
-                hello@kidus.subagya.com
+                kidayos2014@gmail.com
+              </a>
+              <a href="https://t.me/Kidajos" target="_blank" rel="noreferrer" className="flex items-center gap-3 text-slate-300 transition hover:text-neon">
+                <span className="grid h-10 w-10 place-items-center rounded-xl border border-white/10 bg-white/5">
+                  <MessageCircle size={16} className="text-cyan-400" />
+                </span>
+                @Kidajos on Telegram
               </a>
               <p className="flex items-center gap-3 text-slate-300">
                 <span className="grid h-10 w-10 place-items-center rounded-xl border border-white/10 bg-white/5">
